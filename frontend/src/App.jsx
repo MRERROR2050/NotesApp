@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState,createContext } from 'react'
 import {
   BrowserRouter as Router,
   Route, 
@@ -14,16 +14,24 @@ import UpdateNote from '../Pages/UpdateNote';
 import Note from '../Pages/Note.';
 
 
+
+export const UserContext = createContext(
+  JSON.parse(localStorage.getItem("user"))
+);
 const App = () => {
 
-  const data = JSON.parse(localStorage.getItem("user"))
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
+
+  
+
+const [user,setUser] = useState(JSON.parse(localStorage.getItem("user")))
+ 
 
 
 
   
 
   return (
+    <UserContext.Provider value={user}>
     <Router>
     <div>
        <Routes>
@@ -31,13 +39,14 @@ const App = () => {
           <Route path="/login" element={<Login setUser={setUser} />} />
           <Route path="/dashboard" element={user ? <Dashboard setUser={setUser}  /> : <Navigate to={"/login"}/>} />
           <Route path="/addnote" element={user ? <AddNote /> : <Navigate to={"/login"} />} /> 
-          <Route path="/notes/:id" element={<Note user={user} />} />
-          <Route path="/notes/:id/edit" element={<UpdateNote user={user} />} />
+          <Route path="/notes/:id" element={<Note />} />
+          <Route path="/notes/:id/edit" element={<UpdateNote />} />
        
         </Routes>
 
     </div>
     </Router>
+    </UserContext.Provider>
   )
 }
 

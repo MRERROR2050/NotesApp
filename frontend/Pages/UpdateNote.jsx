@@ -1,11 +1,13 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
-function UpdateNote({ user }) {
+function UpdateNote() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const params = useParams();
+  const { user } = useContext(UserContext);
+
 
   useEffect(() => {
     async function sendReq() {

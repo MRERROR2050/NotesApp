@@ -17,13 +17,15 @@ app.use(express.json());
 
 
 
- 
-console.log("uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu");
+
 
     app.use("/notes", require("./Routes/noteRoute"));
     app.use("/", require("./Routes/userRoute"));
       
-      
+      app.use((error)=> {
+console.log(error);
+
+      })
 
 mongoose.connect("mongodb+srv://abdalfatahaljuaidi:Mrerror2002@cluster0.b1gih.mongodb.net/ibrahem?retryWrites=true&w=majority&appName=Cluster0").then(() => {
   app.listen(process.env.PORT, () => {

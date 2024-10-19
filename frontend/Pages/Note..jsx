@@ -1,10 +1,10 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useContext } from "react";
 import { Link, useParams } from "react-router-dom";
 
-function Note({ user }) {
+function Note() {
   const params = useParams();
-
+  const { user } = useContext(UserContext);
   const [note, setNote] = useState({});
   useEffect(() => {
     async function sendReq() {

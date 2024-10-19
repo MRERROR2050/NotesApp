@@ -9,13 +9,13 @@ const jwt = require("jsonwebtoken");
  * @access public
  */
 const signupCtrl = async (req, res) => {
-    console.log("yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy");
+  
     
     try {
       
         const { error } = signupSchema(req.body);
         if (error) {
-            console.log("hhhhhhhhhhhhhhhhhhhhhhhhh");
+         
             
             return res.status(400).json({ error: true, message: error.details[0].message });
         }
@@ -64,6 +64,7 @@ const signupCtrl = async (req, res) => {
 const loginCtrl =  async (req, res) => {
 
     try{
+      console.log("hello error1");
       
       const{email,password} = req.body
       console.log(email);

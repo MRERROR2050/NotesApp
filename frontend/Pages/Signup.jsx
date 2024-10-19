@@ -20,6 +20,12 @@ const Signup = () => {
       })
 
       if (data.message === "Create New User Successfully") {
+       
+          toast.success(data.message, {
+            style: {
+              padding: "8px",
+            },
+          });
         navigate("/login");
       }
         
