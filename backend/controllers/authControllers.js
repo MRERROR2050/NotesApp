@@ -1,7 +1,6 @@
-const { User } = require("../models/User");
+const { User, signupSchema } = require("../models/User");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-
 
 /**
  * @description signup user
@@ -10,47 +9,51 @@ const jwt = require("jsonwebtoken");
  * @access public
  */
 const signupCtrl = async (req, res) => {
-    try{
+    console.log("yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy");
+    
+    try {
+      
+        const { error } = signupSchema(req.body);
+        if (error) {
+            console.log("hhhhhhhhhhhhhhhhhhhhhhhhh");
+            
+            return res.status(400).json({ error: true, message: error.details[0].message });
+        }
 
-
-
-        const {name, email, password} = req.body
+        const { name, email, password } = req.body;
         console.log(name);
         console.log(email);
         console.log(password);
-        
+
+    
+        const isUserFound = await User.findOne({ email });
+        console.log(isUserFound);
+        if (isUserFound) {
+            return res.status(400).json({ error: true, message: "User Already Exists" });
+        }
+
+    
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);
 
-
-
-      
-        
-
-        const isUserFound = await User.findOne({email})
-        console.log(isUserFound);
-        if(isUserFound){
-            return res.status(400).json({error:true, message:"User Already Exist" })
-        }
-        
-        const newUser = await User.create({
-            name,email, password: hashedPassword,
-        })
-        console.log(newUser);
-        
-        
-        res.status(200).json({error:false, message:"Create New User Successfully"})
-        
-    }catch(error){
-        res.status(500).json({ error });
-        console.log(error);
     
-      
-        
+        const newUser = await User.create({
+            name,
+            email,
+            password: hashedPassword,
+        });
+        console.log(newUser);
 
+    
+        res.status(200).json({ error: false, message: "User Created Successfully" });
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ error: true, message: 'Server Error', details: error.message });
     }
+};
 
-}
+
 
 /**
  * @description login user

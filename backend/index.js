@@ -11,12 +11,14 @@ const jwt = require('jsonwebtoken')
 
 
 
+
 app.use(cors());
 app.use(express.json());
 
 
 
  
+console.log("uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu");
 
     app.use("/notes", require("./Routes/noteRoute"));
     app.use("/", require("./Routes/userRoute"));

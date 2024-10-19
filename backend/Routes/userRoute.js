@@ -7,7 +7,10 @@ const {signupCtrl,loginCtrl} = require('../controllers/authControllers')
 
 
 
-routerUser.post('/signup',signupCtrl)
+routerUser.post('/signup',()=>{
+    console.log("dsadasl;msdvm;ksmvlsndVnlczxmv.lmzncmv.,");
+    
+},signupCtrl)
 
 
 routerUser.post('/login',loginCtrl)
